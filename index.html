@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Halधर - Soil to Success</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <img src="Img/logo.png" alt="Halधर logo" class="logo"/>
+      <h1>Halधर</h1>
+      <p class="tagline">Soil to Success</p>
+      <nav>
+        <a href="#services">Services</a>
+        <a href="#about">About Us</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <section id="hero">
+    <div class="container">
+      <h2>Empowering Farmers with Smart Agriculture</h2>
+      <p>We analyze your soil and suggest the most profitable crops, supply agri-inputs at fair prices, and ensure buyback.</p>
+    <div style="margin-top: 30px;"></div>
+      <a href="#contact" class="btn">Get Started</a>
+    </div>
+  </section>
+
+  <section id="services">
+    <div class="container">
+      <h2>Our Services</h2>
+      <div class="service">
+        <h3>🧪 Soil Testing</h3>
+        <p>Free or affordable soil testing for pH, nutrients, temperature, and moisture.</p>
+      </div>
+      <div class="service">
+        <h3>📊 Crop Recommendation</h3>
+        <p>Data-driven suggestions for high-profit vegetables & medicinal plants.</p>
+      </div>
+      <div class="service">
+        <h3>🚚 Agri-Input Delivery</h3>
+        <p>Delivery of quality seeds, fertilizers, and tools at lower-than-market prices.</p>
+      </div>
+      <div class="service">
+        <h3>🤝 Crop Buyback</h3>
+        <p>We ensure guaranteed buyback of harvested crops at fair prices.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="container">
+      <h2>About Halधर</h2>
+      <p>"Halधर" is built by a team passionate about agri-biotech, bioinformatics, and farmer welfare. We bring smart solutions to every field — from soil to market.</p>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="container">
+      <h2>Contact Us</h2>
+      <form action="mailto:your-email@example.com" method="post" enctype="text/plain">
+        <input type="text" name="name" placeholder="Your Name" required/>
+        <input type="email" name="email" placeholder="Your Email" required/>
+        <textarea name="message" rows="4" placeholder="Your Message" required></textarea>
+        <button type="submit" class="btn">Send Message</button>
+      </form>
+    </div>
+  </section>
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Farmer Dashboard - Halधर</title>
+    <link rel="stylesheet" href="style.css"/>
+  </head>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4fff3;
+    }
+
+    .sidebar {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background-color: #007f3f;
+      overflow-x: hidden;
+      transition: 0.3s;
+      padding-top: 60px;
+      z-index: 1;
+    }
+
+    .sidebar a {
+      padding: 10px 20px;
+      text-decoration: none;
+      font-size: 18px;
+      color: white;
+      display: block;
+      transition: 0.3s;
+    }
+
+    .sidebar a:hover {
+      background-color: #00b34e;
+    }
+
+    .menu-btn {
+      font-size: 28px;
+      cursor: pointer;
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background: none;
+      border: none;
+      color: #fdfffe;
+      z-index: 2;
+    }
+
+    .hero {
+      padding: 100px 20px;
+      text-align: center;
+    }
+
+    .hero h2 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    .hero button {
+      padding: 10px 20px;
+      background: #007f3f;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .hero button:hover {
+      background: #00b34e;
+    }
+  </style>
+</head>
+
+  <!-- Hamburger button -->
+  <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+
+  <!-- Sidebar navigation -->
+  <div id="sidebar" class="sidebar">
+    <a href="index.html">🏡 Home</a>
+    <a href="dashboard.html">📊 Dashboard</a>
+    <a href="weather.html">🌦️ Weather</a>
+    <a href="mandi.html">📊 Mandi Rates</a>
+    <a href="feedback.html">📝 Feedback</a>
+    <a href="login.html">🔐 Login</a>
+    <a href="signup.html">🧾 Signup</a>
+    <a href="about.html" class="active">ℹ️ About</a>
+  </div>
+
+  <script>
+    const sidebar = document.getElementById("sidebar");
+    const menuBtn = document.querySelector(".menu-btn");
+  
+    // Toggle sidebar when menu button is clicked
+    function toggleSidebar() {
+      sidebar.style.width = sidebar.style.width === "200px" ? "0" : "200px";
+    }
+  
+    // Close sidebar if user clicks outside of it
+    document.addEventListener("click", function (event) {
+      const isClickInsideSidebar = sidebar.contains(event.target);
+      const isClickOnButton = menuBtn.contains(event.target);
+  
+      if (!isClickInsideSidebar && !isClickOnButton) {
+        sidebar.style.width = "0";
+      }
+    });
+  </script>
+
+  <section style="padding: 40px; background: #f0fdf4; text-align: center;">
+  <h2 style="font-size: 28px; color: #256029;">Message from the Founder</h2>
+  <p style="font-size: 18px; margin-top: 20px; color: #333;">
+    Our land is not just soil, it's the root of our dreams.<br>
+    Halधर was born from that very soil — from the smile of every farmer.<br>
+    We don’t just want you to grow crops, we want you to grow your future.<br>
+    Every drop of your sweat is sacred to us, and we are committed to turning it into profit.<br>
+    Halधर is not just a startup — it's a companion to every farmer's hope.<br>
+    <br> <strong><em>Founder of Halधर~ Abhimanyu Patidar.</em></strong> </p>
+</section>
+
+<footer>
+  <div class="container">
+    <p>&copy; 2025 Halधर. All rights reserved.</p>
+  </div>
+</footer>
+
+<!-- Google Translate Widget -->
+<div id="google_translate_element"></div>
+
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+      pageLanguage: 'en',
+      includedLanguages: 'en,hi,gu,mr,ta,te,bn,kn,pa',
+      layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+    }, 'google_translate_element');
+  }
+</script>
+
+<script type="text/javascript" 
+src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+</body>
+</html>

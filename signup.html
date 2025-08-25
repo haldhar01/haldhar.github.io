@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="UTF-8" />
+  <title>Signup - Halधर</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f0fff0;
+    }
+
+    .sidebar {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background-color: #007f3f;
+      overflow-x: hidden;
+      transition: 0.3s;
+      padding-top: 60px;
+      z-index: 1;
+    }
+
+    .sidebar a {
+      padding: 10px 20px;
+      text-decoration: none;
+      font-size: 18px;
+      color: white;
+      display: block;
+      transition: 0.3s;
+    }
+
+    .sidebar a:hover {
+      background-color: #00b34e;
+    }
+
+    .menu-btn {
+      font-size: 28px;
+      cursor: pointer;
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background: none;
+      border: none;
+      color: #007f3f;
+      z-index: 2;
+    }
+
+    .signup-form {
+      margin: 100px auto;
+      max-width: 400px;
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+
+    .signup-form h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .signup-form input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .signup-form button {
+      width: 100%;
+      padding: 10px;
+      background: #007f3f;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .signup-form button:hover {
+      background: #00b34e;
+    }
+  </style>
+</head>
+<body>
+
+  <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+
+  <div id="sidebar" class="sidebar">
+    <a href="index.html">🏡 Home</a>
+    <a href="dashboard.html">📊 Dashboard</a>
+    <a href="weather.html">🌦️ Weather</a>
+    <a href="mandi.html">📊 Mandi Rates</a>
+    <a href="feedback.html">📝 Feedback</a>
+    <a href="login.html">🔐 Login</a>
+    <a href="signup.html">🧾 Signup</a>
+    <a href="about.html" class="active">ℹ️ About</a>
+  </div>
+
+  <div class="signup-form">
+    <h2>Create Account</h2>
+    <form action="#" method="post">
+      <input type="text" name="username" placeholder="Username" required />
+      <input type="email" name="email" placeholder="Email" required />
+      <div style="position: relative;">
+        <input type="password" id="signupPassword" name="password" placeholder="Password" required />
+        <span onclick="toggleSignupPassword()" style="position: absolute; right: 10px; top: 10px; cursor: pointer; color: #007f3f;">
+          👁
+        </span>
+      </div>
+      
+      <div style="position: relative;">
+        <input type="password" id="confirmPassword" name="confirm_password" placeholder="Confirm Password" required />
+        <span onclick="toggleConfirmPassword()" style="position: absolute; right: 10px; top: 10px; cursor: pointer; color: #007f3f;">
+          👁
+        </span>
+      </div>
+      <button type="submit">Sign Up</button>
+    </form>
+  </div>
+
+  <script>
+    function toggleSidebar() {
+      const sidebar = document.getElementById("sidebar");
+      sidebar.style.width = sidebar.style.width === "200px" ? "0" : "200px";
+    }
+  </script>
+  
+  <script>
+    function toggleSignupPassword() {
+      const pass = document.getElementById("signupPassword");
+      pass.type = pass.type === "password" ? "text" : "password";
+    }
+  
+    function toggleConfirmPassword() {
+      const pass = document.getElementById("confirmPassword");
+      pass.type = pass.type === "password" ? "text" : "password";
+    }
+  </script>
+
+<script>
+  const sidebar = document.getElementById("sidebar");
+  const menuBtn = document.querySelector(".menu-btn");
+
+  // Toggle sidebar when menu button is clicked
+  function toggleSidebar() {
+    sidebar.style.width = sidebar.style.width === "200px" ? "0" : "200px";
+  }
+
+  // Close sidebar if user clicks outside of it
+  document.addEventListener("click", function (event) {
+    const isClickInsideSidebar = sidebar.contains(event.target);
+    const isClickOnButton = menuBtn.contains(event.target);
+
+    if (!isClickInsideSidebar && !isClickOnButton) {
+      sidebar.style.width = "0";
+    }
+  });
+</script>
+
+<!-- Google Translate Widget -->
+<div id="google_translate_element"></div>
+
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+      pageLanguage: 'en',
+      includedLanguages: 'en,hi,gu,mr,ta,te,bn,kn,pa',
+      layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+    }, 'google_translate_element');
+  }
+</script>
+
+<script type="text/javascript" 
+src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+</body>
+</html>

@@ -1,0 +1,312 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", sans-serif;
+  line-height: 1.6;
+  background: #f7f9f4;
+  color: #333;
+}
+
+.container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 20px;
+}
+
+header {
+  background: #004d26;
+  color: #fff;
+  padding: 20px 0;
+  text-align: center;
+}
+
+.logo {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 10px;
+}
+
+.tagline {
+  font-style: italic;
+  margin-bottom: 10px;
+}
+
+nav a {
+  color: #fff;
+  margin: 0 10px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+#hero {
+  background: #004d26;
+  color: #fff;
+  text-align: center;
+  padding: 80px 20px;
+}
+
+#hero h2 {
+  font-size: 2.5rem;
+}
+
+#hero .btn {
+  margin-top: 40px;
+  background: #ffcc00;
+  color: #000;
+  padding: 10px 20px;
+  border: none;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+#services {
+  background: #e4fbe0;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.service {
+  margin-bottom: 20px;
+}
+
+#about {
+  padding: 40px 20px;
+  background: #fefefe;
+}
+
+#contact {
+  background: #def5de;
+  padding: 40px 20px;
+}
+
+form input,
+form textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+form .btn {
+  background: #004d26;
+  color: white;
+  cursor: pointer;
+}
+
+footer {
+  background: #004d26;
+  color: white;
+  text-align: center;
+  padding: 15px;
+}
+
+form input,
+form textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+form .btn {
+  background: #004d26;
+  color: white;
+  cursor: pointer;
+}
+
+footer {
+  background: #004d26;
+  color: white;
+  text-align: center;
+  padding: 15px;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Dashboard */
+.dashboard-box {
+  background: #f1fbe7;
+  border: 2px solid #cdeac0;
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 10px;
+  box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* ======= Mobile Responsiveness ======= */
+@media screen and (max-width: 768px) {
+  .container {
+    width: 95%;
+    padding: 10px;
+  }
+
+  header h1 {
+    font-size: 1.6rem;
+    text-align: center;
+  }
+
+  nav {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  section h2 {
+    font-size: 1.3rem;
+    text-align: center;
+  }
+
+  .hero {
+    flex-direction: column;
+    text-align: center;
+    padding: 30px 10px;
+  }
+
+  .hero h1 {
+    font-size: 2rem;
+  }
+
+  .hero p {
+    font-size: 1rem;
+  }
+
+  .hero button {
+    width: 80%;
+    margin-top: 15px;
+  }
+
+  .dashboard-box,
+  .feedback-form {
+    margin: 15px 5px;
+    padding: 15px;
+  }
+
+  footer p {
+    text-align: center;
+    font-size: 0.9rem;
+  }
+}
+
+#google_translate_element {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 9999;
+}
+
+#weather {
+  background: #e6f9ff;
+  padding: 30px 20px;
+  border-radius: 10px;
+  text-align: center;
+  margin-top: 30px;
+}
+
+#crop-rec input,
+#crop-rec select,
+#crop-rec button {
+  display: block;
+  width: 50%;
+  margin-bottom: 15px;
+}
+
+#input-orders table, #input-orders th, #input-orders td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+}
+
+#input-orders th {
+  background-color: #c1f0c1;
+}
+
+.status {
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  color: white;
+}
+
+.delivered {
+  background-color: #28a745;
+}
+
+.processing {
+  background-color: #ffc107;
+}
+
+.not-shipped {
+  background-color: #dc3545;
+}
+
+#buyback-contract input, #buyback-contract select, #buyback-contract button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+#buyback-contract table, #buyback-contract th, #buyback-contract td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: center;
+}
+
+#buyback-contract th {
+  background-color: #c1f0c1;
+}
+
+td strong {
+  color: #007f3f;
+}
+
+.section-toggle {
+  text-align: center;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.section-toggle button {
+  background-color: #007f3f;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 0 8px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.section-toggle button:hover {
+  background-color: #00b34e;
+}
+
+.section-block {
+  display: none;
+}
+
+.section-block.active {
+  display: block;
+}

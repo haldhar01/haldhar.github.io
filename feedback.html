@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Feedback - Halधर</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4fff3;
+    }
+
+    .feedback-section {
+      background: #f5fbe6;
+      padding: 50px 20px;
+    }
+
+    .feedback-form {
+      background: white;
+      max-width: 600px;
+      margin: auto;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 0.6s ease;
+    }
+
+    .feedback-form.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .feedback-form h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #007f3f;
+    }
+
+    .feedback-form input,
+    .feedback-form textarea,
+    .feedback-form select {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    .feedback-form button {
+      background: #007f3f;
+      color: white;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+      font-size: 16px;
+      transition: background 0.3s ease;
+    }
+
+    .feedback-form button:hover {
+      background: #28a745;
+    }
+
+    .star-rating {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .star-rating span {
+      font-size: 24px;
+      cursor: pointer;
+      color: gray;
+    }
+
+    .star-rating span.checked {
+      color: gold;
+    }
+
+    .thank-you {
+      text-align: center;
+      font-size: 18px;
+      color: green;
+      display: none;
+      margin-top: 20px;
+    }
+
+    .menu-btn {
+      font-size: 28px;
+      cursor: pointer;
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      color: white;
+      background: none;
+      border: none;
+      padding: 0;
+      z-index: 1001;
+    }
+
+    .sidebar {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background-color: #007f3f;
+      overflow-x: hidden;
+      transition: 0.3s;
+      padding-top: 60px;
+      z-index: 1000;
+    }
+
+    .sidebar a {
+      padding: 10px 20px;
+      text-decoration: none;
+      font-size: 18px;
+      color: white;
+      display: block;
+      transition: 0.3s;
+    }
+
+    .sidebar a:hover {
+      background-color: #00b34e;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar button -->
+  <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+
+  <!-- Sidebar navigation -->
+  <div id="sidebar" class="sidebar">
+    <a href="index.html">🏡 Home</a>
+    <a href="dashboard.html">📊 Dashboard</a>
+    <a href="weather.html">🌦️ Weather</a>
+    <a href="mandi.html">📊 Mandi Rates</a>
+    <a href="feedback.html">📝 Feedback</a>
+    <a href="login.html">🔐 Login</a>
+    <a href="signup.html">🧾 Signup</a>
+    <a href="about.html" class="active">ℹ️ About</a>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="container" style="text-align: center;">
+      <a href="index.html"><img src="Img/logo.png" alt="Halधर" class="logo" style="max-width: 120px;"/></a>
+      <h1>Halधर</h1>
+      <h2>📣 Feedback</h2>
+    </div>
+  </header>
+
+  <!-- Feedback Form -->
+  <section class="feedback-section">
+    <form class="feedback-form" id="feedbackForm" action="mailto:haldhar.in@gmail.com" method="post" enctype="text/plain">
+      <h2>We value your feedback!</h2>
+
+      <input type="text" name="name" placeholder="Your Name" required/>
+      <input type="email" name="email" placeholder="Your Email" required/>
+      <input type="tel" name="phone" placeholder="Your Phone (Optional)"/>
+
+      <select name="feedbackType">
+        <option value="">Select Feedback Type</option>
+        <option value="Suggestion">🌾 Suggestion</option>
+        <option value="Bug">❌ Bug/Error</option>
+        <option value="Appreciation">❤️ Appreciation</option>
+        <option value="Input">📦 Agri-input related</option>
+        <option value="Buyback">💰 Buyback related</option>
+      </select>
+
+      <div class="star-rating">
+        <span onclick="setRating(1)">&#9733;</span>
+        <span onclick="setRating(2)">&#9733;</span>
+        <span onclick="setRating(3)">&#9733;</span>
+        <span onclick="setRating(4)">&#9733;</span>
+        <span onclick="setRating(5)">&#9733;</span>
+        <input type="hidden" name="rating" id="ratingValue" value=""/>
+      </div>
+
+      <textarea name="feedback" rows="5" placeholder="I used Halधर to check crop recommendations and I feel..." required></textarea>
+      <input type="file" name="attachment" accept="image/*"/>
+
+      <button type="submit" onclick="showThankYou()">Submit Feedback</button>
+      <p class="thank-you" id="thankYouMsg">🙏 Thank you! Your feedback has been received.</p>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 Halधर. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    const sidebar = document.getElementById("sidebar");
+    const menuBtn = document.querySelector(".menu-btn");
+
+    function toggleSidebar() {
+      sidebar.style.width = sidebar.style.width === "200px" ? "0" : "200px";
+    }
+
+    document.addEventListener("click", function (event) {
+      if (!sidebar.contains(event.target) && !menuBtn.contains(event.target)) {
+        sidebar.style.width = "0";
+      }
+    });
+
+    window.addEventListener("load", () => {
+      document.querySelector(".feedback-form").classList.add("visible");
+    });
+
+    function setRating(stars) {
+      document.getElementById("ratingValue").value = stars;
+      const starsArray = document.querySelectorAll(".star-rating span");
+      starsArray.forEach((star, index) => {
+        star.classList.toggle("checked", index < stars);
+      });
+    }
+
+    function showThankYou() {
+      setTimeout(() => {
+        document.getElementById("thankYouMsg").style.display = "block";
+      }, 500); // shows after 0.5 sec
+    }
+  </script>
+
+  <!-- Google Translate -->
+  <div id="google_translate_element"></div>
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({
+        pageLanguage: 'en',
+        includedLanguages: 'en,hi,gu,mr,ta,te,bn,kn,pa',
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+      }, 'google_translate_element');
+    }
+  </script>
+  <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+</body>
+</html>
