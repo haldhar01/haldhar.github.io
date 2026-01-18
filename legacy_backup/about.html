@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us - Halधर</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f9fff8;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 40px 20px;
+    }
+    h1, h2 {
+      color: #2e7d32;
+      text-align: center;
+    }
+    p {
+      font-size: 17px;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+    .highlight {
+      background-color: #e0f2f1;
+      padding: 20px;
+      border-radius: 8px;
+    }
+    .section {
+      margin-bottom: 40px;
+    }
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+    }
+    #toggle-btn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      font-size: 28px;
+      cursor: pointer;
+      z-index: 1000;
+      color: white;
+      background-color: #2e7d32;
+      padding: 8px 12px;
+      border-radius: 6px;
+    }
+    #sidebar {
+      position: fixed;
+      left: -250px;
+      top: 0;
+      width: 220px;
+      height: 100%;
+      background-color: #2e7d32;
+      color: white;
+      padding-top: 60px;
+      transition: 0.3s;
+      z-index: 999;
+      box-shadow: 2px 0 8px rgba(0,0,0,0.2);
+    }
+    #sidebar a {
+      display: block;
+      padding: 15px 20px;
+      text-decoration: none;
+      color: white;
+      font-weight: 500;
+    }
+    #sidebar a:hover, #sidebar a.active {
+      background-color: #388e3c;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar button -->
+  <div id="toggle-btn" onclick="toggleSidebar()">☰</div>
+
+  <!-- Sidebar navigation -->
+  <div id="sidebar" class="sidebar">
+    <a href="index.html">🏡 Home</a>
+    <a href="dashboard.html">📊 Dashboard</a>
+    <a href="weather.html">🌦️ Weather</a>
+    <a href="mandi.html">📊 Mandi Rates</a>
+    <a href="feedback.html">📝 Feedback</a>
+    <a href="login.html">🔐 Login</a>
+    <a href="signup.html">🧾 Signup</a>
+    <a href="about.html" class="active">ℹ️ About</a>
+  </div>
+  
+  <!-- Main Content -->
+  <div class="container">
+    <h1>About Halधर</h1>
+
+    <div class="section fade-in">
+      <h2>🌱 Our Story</h2>
+      <p>Halधर was born out of a simple but powerful idea — to empower India's farmers using modern tools, data, and heart. We saw the problems firsthand: overpriced seeds, unpredictable crop prices, and no market guarantee. So we rolled up our sleeves and decided to build a solution — not just an app, but a movement.</p>
+    </div>
+
+    <div class="section fade-in highlight">
+      <h2>🎯 Our Mission</h2>
+      <p>To make agriculture sustainable, profitable, and smart for every small and marginal farmer in India. We aim to bridge the gap between tech and tradition.</p>
+      <h2>👁️ Our Vision</h2>
+      <p>A future where no farmer is forced to quit farming. Where knowledge is free, support is real, and growth is guaranteed — from soil to success.</p>
+    </div>
+
+    <div class="section fade-in">
+      <h2>🧑‍🌾 Why the Name 'Halधर'?</h2>
+      <p>'Halधर' means the one who holds the plough. It’s inspired by Balaram, the elder brother of Lord Krishna — the first symbolic farmer of Bharat. We chose this name to honor our roots, our farmers, and our soil.</p>
+    </div>
+
+    <div class="section fade-in">
+      <h2>💚 Our Impact</h2>
+      <p>Nothing yet.</p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Halधर. All rights reserved.</p>
+  </footer>
+
+  <!-- Translate -->
+  <div id="google_translate_element"></div>
+  <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  <script>
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({
+        pageLanguage: 'en',
+        includedLanguages: 'en,hi,gu,mr,ta,te,bn,kn,pa',
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+      }, 'google_translate_element');
+    }
+
+    function toggleSidebar() {
+      const bar = document.getElementById("sidebar");
+      bar.style.left = bar.style.left === "0px" ? "-250px" : "0px";
+    }
+
+    document.addEventListener("click", function (e) {
+      const sidebar = document.getElementById("sidebar");
+      const toggleBtn = document.getElementById("toggle-btn");
+      if (!sidebar.contains(e.target) && !toggleBtn.contains(e.target)) {
+        sidebar.style.left = "-250px";
+      }
+    });
+
+    const fadeIns = document.querySelectorAll('.fade-in');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = 1;
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    fadeIns.forEach(section => {
+      observer.observe(section);
+    });
+  </script>
+</body>
+</html>

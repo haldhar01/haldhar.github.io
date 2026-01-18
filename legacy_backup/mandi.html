@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Halधर - Mandi Rates</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f9f4;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      padding: 20px;
+    }
+    h2 {
+      text-align: center;
+      color: #2e7d32;
+    }
+    select, button {
+      padding: 10px;
+      margin-top: 10px;
+      width: 100%;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      cursor: pointer;
+      margin-bottom: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      background-color: white;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 12px;
+      text-align: center;
+    }
+    th {
+      background-color: #c8e6c9;
+    }
+    #toggle-btn {
+      color: white;
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      font-size: 28px;
+      cursor: pointer;
+      z-index: 1000;
+    }
+    #sidebar {
+      position: fixed;
+      left: -250px;
+      top: 0;
+      width: 220px;
+      height: 100%;
+      background-color: #2e7d32;
+      color: white;
+      padding-top: 60px;
+      transition: 0.3s;
+      z-index: 999;
+      box-shadow: 2px 0 8px rgba(0,0,0,0.2);
+    }
+    #sidebar a {
+      display: block;
+      padding: 15px 20px;
+      text-decoration: none;
+      color: white;
+      font-weight: 500;
+    }
+    #sidebar a.active, #sidebar a:hover {
+      background-color: #388e3c;
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar Button -->
+  <div id="toggle-btn" onclick="toggleSidebar()">☰</div>
+
+  <!-- Sidebar -->
+  <div id="sidebar" class="sidebar">
+    <a href="index.html">🏡 Home</a>
+    <a href="dashboard.html">📊 Dashboard</a>
+    <a href="weather.html">🌦️ Weather</a>
+    <a href="mandi.html">📊 Mandi Rates</a>
+    <a href="feedback.html">📝 Feedback</a>
+    <a href="login.html">🔐 Login</a>
+    <a href="signup.html">🧾 Signup</a>
+    <a href="about.html" class="active">ℹ️ About</a>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <header>
+        <a href="index.html">
+      <img src="Img/logo.png" alt="Halधर" class="logo"/>
+    </a>
+      <h1>Halधर</h1>
+      <p class="tagline">Soil to Success</p>
+    </div>
+  </header>
+
+  <!-- Main Section -->
+  <section id="mandi" class="fade-in">
+    <div class="container">
+      <h2>📊 Mandi Rates</h2>
+      <select id="state">
+        <option value="">Select State</option>
+        <option value="Rajasthan">Rajasthan</option>
+        <option value="Gujarat">Gujarat</option>
+      </select>
+
+      <select id="district">
+        <option value="">Select District</option>
+        <option value="Jaipur">Jaipur</option>
+        <option value="Surat">Surat</option>
+      </select>
+
+      <select id="crop">
+        <option value="">Select Crop</option>
+        <option value="Wheat">Wheat</option>
+        <option value="Cotton">Cotton</option>
+        <option value="Mustard">Mustard</option>
+      </select>
+
+      <button onclick="showRates()">🔍 Get Rates</button>
+
+      <table id="mandiTable">
+        <thead>
+          <tr>
+            <th>Mandi</th>
+            <th>Crop</th>
+            <th>Min Price (₹)</th>
+            <th>Max Price (₹)</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td colspan="5">Select crop and district to view rates</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 Halधर. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Translate -->
+  <div id="google_translate_element"></div>
+  <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  <script>
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({
+        pageLanguage: 'en',
+        includedLanguages: 'en,hi,gu,mr,ta,te,bn,kn,pa',
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+      }, 'google_translate_element');
+    }
+  </script>
+
+  <!-- Scripts -->
+  <script>
+    function toggleSidebar() {
+      const bar = document.getElementById("sidebar");
+      bar.style.left = bar.style.left === "0px" ? "-250px" : "0px";
+    }
+
+    document.addEventListener("click", function (e) {
+      const sidebar = document.getElementById("sidebar");
+      const toggleBtn = document.getElementById("toggle-btn");
+      if (!sidebar.contains(e.target) && !toggleBtn.contains(e.target)) {
+        sidebar.style.left = "-250px";
+      }
+    });
+
+    function showRates() {
+      const crop = document.getElementById("crop").value;
+      const district = document.getElementById("district").value;
+
+      const mandiData = {
+        "Wheat|Jaipur": {
+          mandi: "Jaipur Mandi",
+          min: 2150,
+          max: 2300,
+          date: "2025-07-15"
+        },
+        "Cotton|Surat": {
+          mandi: "Surat Mandi",
+          min: 5900,
+          max: 6200,
+          date: "2025-07-15"
+        },
+        "Mustard|Jaipur": {
+          mandi: "Jaipur Mandi",
+          min: 4700,
+          max: 4950,
+          date: "2025-07-15"
+        }
+      };
+
+      const key = `${crop}|${district}`;
+      const table = document.querySelector("#mandiTable tbody");
+
+      if (mandiData[key]) {
+        const entry = mandiData[key];
+        table.innerHTML = `
+          <tr>
+            <td>${entry.mandi}</td>
+            <td>${crop}</td>
+            <td>₹${entry.min}</td>
+            <td>₹${entry.max}</td>
+            <td>${entry.date}</td>
+          </tr>
+        `;
+      } else {
+        table.innerHTML = `<tr><td colspan="5">❌ No data found for ${crop} in ${district}</td></tr>`;
+      }
+    }
+
+    // Scroll animation
+    const fadeIns = document.querySelectorAll('.fade-in');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = 1;
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    fadeIns.forEach(section => {
+      section.style.opacity = 0;
+      section.style.transform = 'translateY(30px)';
+      section.style.transition = 'all 0.8s ease';
+      observer.observe(section);
+    });
+  </script>
+</body>
+</html>

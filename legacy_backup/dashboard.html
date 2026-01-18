@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Farmer Dashboard - Halधर</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <header>
+    <a href="index.html">
+  <img src="Img/logo.png" alt="Halधर" class="logo"/>
+</a>
+      <h1>Halधर</h1>
+    <div class="container">
+      <h1>👨‍🌾 Farmer Dashboard</h1>
+    </div>
+  </header>
+
+  <section class="container">
+    <h2>Welcome, Farmer!</h2>
+    <p>This is your personalized dashboard. Here you can check crop recommendations, input supplies, and buyback contracts.</p>
+
+    <section id="crop-rec" class="fade-in">
+  <div class="container">
+    <h2>🌱 Crop Recommendation</h2>
+
+    <label for="ph">Soil pH:</label>
+    <input type="number" id="ph" step="0.1" placeholder="e.g., 6.5">
+
+    <label for="moisture">Soil Moisture (%):</label>
+    <input type="number" id="moisture" placeholder="e.g., 30">
+
+    <label for="temp">Temperature (°C):</label>
+    <input type="number" id="temp" placeholder="e.g., 25">
+
+    <label for="season">Season:</label>
+    <select id="season">
+      <option value="Rabi">Rabi</option>
+      <option value="Kharif">Kharif</option>
+      <option value="Zaid">Zaid</option>
+    </select>
+
+    <button onclick="recommendCrop()">Get Recommendations</button>
+
+    <div id="result" class="result" style="display:none;"></div>
+  </div>
+</section>
+
+    <div class="dashboard-box">
+      <h3>🚜 Agri-Input Supply Status</h3>
+      <section id="input-orders" class="fade-in">
+  <div class="container">
+    <h2>📦 Agri-Input Supply Status</h2>
+    <table style="width: 100%; border-collapse: collapse;">
+      <thead>
+        <tr style="background-color: #e6ffe6;">
+          <th>Order ID</th>
+          <th>Item</th>
+          <th>Quantity</th>
+          <th>Order Date</th>
+          <th>Status</th>
+          <th>ETA</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody id="order-table">
+        <!-- Dynamic rows will appear here -->
+         <script>
+  const orders = [
+  {
+    id: "#AGRI102",
+    item: "Urea Fertilizer",
+    qty: "50 kg",
+    date: "12 July",
+    status: "Delivered",
+    eta: "-",
+    price: "₹600"
+  },
+  {
+    id: "#AGRI107",
+    item: "Cotton Seeds",
+    qty: "20 kg",
+    date: "15 July",
+    status: "Processing",
+    eta: "18 July",
+    price: "₹1500"
+  },
+  {
+    id: "#AGRI110",
+    item: "Bio-Pesticide",
+    qty: "5 L",
+    date: "16 July",
+    status: "Not Shipped",
+    eta: "22 July",
+    price: "₹850"
+  }
+];
+
+  const table = document.getElementById("order-table");
+
+  orders.forEach(order => {
+    const tr = document.createElement("tr");
+
+    tr.innerHTML = `
+      <td>${order.id}</td>
+      <td>${order.item}</td>
+      <td>${order.qty}</td>
+      <td>${order.date}</td>
+      <td><span class="status ${order.status.toLowerCase().replace(" ", "-")}">${order.status}</span></td>
+      <td>${order.eta}</td>
+      <td>${order.price}</td>
+    `;
+
+    table.appendChild(tr);
+  });
+</script>
+
+      </tbody>
+    </table>
+  </div>
+</section>
+
+    </div>
+
+    <div class="dashboard-box">
+      <h3>🤝 Buyback Contracts</h3>
+      <section id="buyback-contract" class="fade-in">
+  <div class="container">
+    <h2>🤝 Buyback Contract Registration</h2>
+    <form id="contractForm">
+      <label for="name">Farmer Name:</label>
+      <input type="text" id="name" required placeholder="e.g., Ramesh Patel">
+
+      <label for="village">Village/District:</label>
+      <input type="text" id="village" required placeholder="e.g., Anand, Gujarat">
+
+      <label for="crop">Crop to Sell:</label>
+      <select id="crop" required>
+        <option value="">-- Select Crop --</option>
+        <option value="Wheat">Wheat</option>
+        <option value="Mustard">Mustard</option>
+        <option value="Cotton">Cotton</option>
+        <option value="Tomato">Tomato</option>
+        <option value="Tulsi">Tulsi</option>
+      </select>
+
+      <label for="quantity">Estimated Quantity (kg):</label>
+      <input type="number" id="quantity" required placeholder="e.g., 1000">
+
+      <label for="rate">Buyback Rate (₹ per kg):</label>
+      <input type="number" id="rate" required placeholder="e.g., 25">
+
+      <label for="harvestDate">Expected Harvest Date:</label>
+      <input type="date" id="harvestDate" required>
+
+      <label>
+        <input type="checkbox" id="agree" required>
+        I agree to sell the above crop to Halधर at the agreed market price.
+      </label>
+
+      <button type="submit" class="btn">Submit Contract</button>
+    </form>
+
+    <div id="contractStatus" style="margin-top: 30px;">
+      <h3>🗂️ Submitted Contracts</h3>
+      <table style="width: 100%; border-collapse: collapse;">
+        <thead>
+          <tr style="background-color: #e6ffe6;">
+            <th>Contract ID</th>
+            <th>Farmer</th>
+            <th>Crop</th>
+            <th>Qty (kg)</th>
+            <th>Rate (₹/kg)</th>
+            <th>Total (₹)</th>
+            <th>Harvest Date</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="contractTable">
+         <script>
+  let contractCount = 1;
+
+  const contractForm = document.getElementById("contractForm");
+  const contractTable = document.getElementById("contractTable");
+
+  contractForm.addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const name = document.getElementById("name").value;
+    const village = document.getElementById("village").value;
+    const crop = document.getElementById("crop").value;
+    const quantity = parseFloat(document.getElementById("quantity").value);
+    const harvestDate = document.getElementById("harvestDate").value;
+    const rate = parseFloat(document.getElementById("rate").value);
+
+    const contractID = `CONTRACT#2025-${String(contractCount).padStart(3, '0')}`;
+    contractCount++;
+
+    const total = quantity * rate;
+
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${contractID}</td>
+      <td>${name}</td>
+      <td>${crop}</td>
+      <td>${quantity} kg</td>
+      <td>₹${rate}</td>
+      <td><strong>₹${total.toFixed(2)}</strong></td>
+      <td>${harvestDate}</td>
+      <td><span style="color: orange;">Pending Approval</span></td>
+    `;
+
+    contractTable.appendChild(row);
+    contractForm.reset();
+    alert("✅ Contract submitted! Your ID: " + contractID);
+  });
+</script>
+
+
+         </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+    </div>
+  </section>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4fff3;
+    }
+
+    .sidebar {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background-color: #007f3f;
+      overflow-x: hidden;
+      transition: 0.3s;
+      padding-top: 60px;
+      z-index: 1;
+    }
+
+    .sidebar a {
+      padding: 10px 20px;
+      text-decoration: none;
+      font-size: 18px;
+      color: white;
+      display: block;
+      transition: 0.3s;
+    }
+
+    .sidebar a:hover {
+      background-color: #00b34e;
+    }
+
+    .menu-btn {
+      font-size: 28px;
+      cursor: pointer;
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background: none;
+      border: none;
+      color: #fdfffe;
+      z-index: 2;
+    }
+
+    .hero {
+      padding: 100px 20px;
+      text-align: center;
+    }
+
+    .hero h2 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    .hero button {
+      padding: 10px 20px;
+      background: #007f3f;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .hero button:hover {
+      background: #00b34e;
+    }
+
+    .result {
+  background: #d4f5d0;
+  padding: 15px;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+  </style>
+</head>
+
+  <!-- Hamburger button -->
+  <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+
+  <!-- Sidebar navigation -->
+  <div id="sidebar" class="sidebar">
+    <a href="index.html">🏡 Home</a>
+    <a href="dashboard.html">📊 Dashboard</a>
+    <a href="weather.html">🌦️ Weather</a>
+    <a href="mandi.html">📊 Mandi Rates</a>
+    <a href="feedback.html">📝 Feedback</a>
+    <a href="login.html">🔐 Login</a>
+    <a href="signup.html">🧾 Signup</a>
+    <a href="about.html" class="active">ℹ️ About</a>
+  </div>
+
+  <script>
+    const sidebar = document.getElementById("sidebar");
+    const menuBtn = document.querySelector(".menu-btn");
+  
+    // Toggle sidebar when menu button is clicked
+    function toggleSidebar() {
+      sidebar.style.width = sidebar.style.width === "200px" ? "0" : "200px";
+    }
+  
+    // Close sidebar if user clicks outside of it
+    document.addEventListener("click", function (event) {
+      const isClickInsideSidebar = sidebar.contains(event.target);
+      const isClickOnButton = menuBtn.contains(event.target);
+  
+      if (!isClickInsideSidebar && !isClickOnButton) {
+        sidebar.style.width = "0";
+      }
+    });
+  </script>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 Halधर. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Google Translate Widget -->
+<div id="google_translate_element"></div>
+
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+      pageLanguage: 'en',
+      includedLanguages: 'en,hi,gu,mr,ta,te,bn,kn,pa',
+      layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+    }, 'google_translate_element');
+  }
+</script>
+
+<script type="text/javascript" 
+src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<script>
+  document.getElementById("soilForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    const ph = parseFloat(this.ph.value);
+    const nitrogen = this.nitrogen.value.toLowerCase();
+    const phosphorus = this.phosphorus.value.toLowerCase();
+    const moisture = parseFloat(this.moisture.value);
+
+    let crops = [];
+
+    if (ph >= 6 && ph <= 7.5 && nitrogen === "medium" && phosphorus === "high" && moisture > 40) {
+      crops = ["Tulsi", "Drumstick", "Ashwagandha"];
+    } else if (ph < 6.5 && nitrogen === "low") {
+      crops = ["Green Gram", "Cowpea", "Spinach"];
+    } else if (moisture < 30) {
+      crops = ["Aloe Vera", "Marigold", "Coriander"];
+    } else {
+      crops = ["Tomato", "Okra", "Chili"];
+    }
+
+    document.getElementById("recommendationResult").innerHTML = crops.join("<br>");
+  });
+</script>
+
+<script>
+  function recommendCrop() {
+    const ph = parseFloat(document.getElementById('ph').value);
+    const moisture = parseFloat(document.getElementById('moisture').value);
+    const temp = parseFloat(document.getElementById('temp').value);
+    const season = document.getElementById('season').value;
+    const resultDiv = document.getElementById('result');
+
+    let recommended = [];
+
+    if (ph >= 6 && ph <= 7.5 && season === 'Rabi') {
+      recommended.push('Wheat', 'Mustard', 'Barley');
+    }
+    if (ph >= 5.5 && ph <= 6.8 && season === 'Kharif') {
+      recommended.push('Paddy', 'Cotton', 'Maize');
+    }
+    if (ph >= 6 && ph <= 7 && season === 'Zaid') {
+      recommended.push('Cucumber', 'Bitter Gourd', 'Pumpkin');
+    }
+
+    if (recommended.length > 0) {
+      resultDiv.style.display = 'block';
+      resultDiv.innerHTML = `<strong>Recommended Crops:</strong><br>🌿 ${recommended.join(', ')}`;
+    } else {
+      resultDiv.style.display = 'block';
+      resultDiv.innerHTML = 'No specific crop match found. Please adjust input values.';
+    }
+  }
+</script>
+  
+</body>
+</html>

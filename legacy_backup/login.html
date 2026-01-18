@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Weather - Halधर</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    .sidebar {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background-color: #007f3f;
+      overflow-x: hidden;
+      transition: 0.3s;
+      padding-top: 60px;
+      z-index: 2;
+    }
+
+    .sidebar a {
+      padding: 10px 20px;
+      text-decoration: none;
+      font-size: 18px;
+      color: white;
+      display: block;
+      transition: 0.3s;
+    }
+
+    .sidebar a:hover {
+      background-color: #00b34e;
+    }
+
+    .menu-btn {
+      font-size: 28px;
+      cursor: pointer;
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background: none;
+      border: none;
+      color: white;
+      z-index: 3;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4fff3;
+    }
+
+    .forecast-box {
+      background: #e8f9e5;
+      padding: 10px;
+      border-radius: 10px;
+      margin: 10px 0;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ☰ Toggle Button -->
+  <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+
+  <!-- Sidebar -->
+  <div id="sidebar" class="sidebar">
+    <a href="index.html">🏡 Home</a>
+    <a href="dashboard.html">📊 Dashboard</a>
+    <a href="weather.html">🌦️ Weather</a>
+    <a href="mandi.html">📊 Mandi Rates</a>
+    <a href="feedback.html">📝 Feedback</a>
+    <a href="login.html">🔐 Login</a>
+    <a href="signup.html">🧾 Signup</a>
+    <a href="about.html" class="active">ℹ️ About</a>
+  </div>
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <a href="index.html">
+        <img src="Img/logo.png" alt="Khet Se Logo" class="logo"/>
+      </a>
+      <h1>Halधर</h1>
+      <p class="tagline">Soil to Success</p>
+    </div>
+  </header>
+
+  <!-- Weather Forecast Section -->
+  <section id="weather" class="fade-in">
+    <div class="container">
+      <h2>5-Day Weather Forecast</h2>
+      <input type="text" id="cityInput" placeholder="Enter city name" />
+      <button onclick="getWeather()" class="btn">Get Weather</button>
+      <div id="weather-data"></div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 Halधर. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Google Translate -->
+  <div id="google_translate_element"></div>
+
+  <script>
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({
+        pageLanguage: 'en',
+        includedLanguages: 'en,hi,gu,mr,ta,te,bn,kn,pa',
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+      }, 'google_translate_element');
+    }
+  </script>
+  <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+  <!-- Sidebar Logic -->
+  <script>
+    const sidebar = document.getElementById("sidebar");
+    const menuBtn = document.querySelector(".menu-btn");
+
+    function toggleSidebar() {
+      sidebar.style.width = sidebar.style.width === "200px" ? "0" : "200px";
+    }
+
+    document.addEventListener("click", function (event) {
+      const isClickInsideSidebar = sidebar.contains(event.target);
+      const isClickOnButton = menuBtn.contains(event.target);
+      if (!isClickInsideSidebar && !isClickOnButton) {
+        sidebar.style.width = "0";
+      }
+    });
+  </script>
+
+  <!-- Weather Forecast Script -->
+  <script>
+    function getWeather() {
+      const city = document.getElementById("cityInput").value || "Kolkata";
+      const apiKey = "b35c4f0ee6f060f01db25f991d79ee74";
+      const url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
+
+      fetch(url)
+        .then(res => res.json())
+        .then(data => {
+          const forecast = data.list;
+          const daily = {};
+
+          forecast.forEach(entry => {
+            const date = entry.dt_txt.split(" ")[0];
+            if (!daily[date]) {
+              daily[date] = {
+                temps: [],
+                weather: entry.weather[0].description
+              };
+            }
+            daily[date].temps.push(entry.main.temp);
+          });
+
+          let output = "";
+          Object.keys(daily).slice(0, 5).forEach(date => {
+            const temps = daily[date].temps;
+            const min = Math.min(...temps).toFixed(1);
+            const max = Math.max(...temps).toFixed(1);
+            const desc = daily[date].weather;
+
+            output += `
+              <div class="forecast-box">
+                <strong>${date}</strong><br>
+                🌡️ ${min}°C - ${max}°C<br>
+                ☁️ ${desc}
+              </div>
+            `;
+          });
+
+          document.getElementById("weather-data").innerHTML = output;
+        })
+        .catch(err => {
+          document.getElementById("weather-data").textContent = "Failed to load weather data.";
+        });
+    }
+  </script>
+
+  <!-- Fade-in Animations -->
+  <script>
+    const fadeIns = document.querySelectorAll('.fade-in');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = 1;
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    fadeIns.forEach(section => {
+      section.style.opacity = 0;
+      section.style.transform = 'translateY(30px)';
+      section.style.transition = 'all 0.8s ease';
+      observer.observe(section);
+    });
+  </script>
+
+</body>
+</html>
